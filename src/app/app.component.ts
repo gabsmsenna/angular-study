@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 @Component({
+  standalone: true,
   selector: 'app-root',
   imports: [RouterOutlet, MatToolbarModule],
   templateUrl: './app.component.html',
