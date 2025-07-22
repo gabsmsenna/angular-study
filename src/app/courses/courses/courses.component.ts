@@ -4,9 +4,11 @@ import { Course } from '../model/course';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CoursesService } from '../services/courses.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
 
 
 @Component({
@@ -27,8 +29,22 @@ export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
   displayedColumns: string[] = ['name', 'category'];
 
-  constructor(private coursesService: CoursesService) {
-    this.courses$ = this.coursesService.listCourses();
+  constructor(private coursesService: CoursesService,
+    public dialog: MatDialog
+  ) {
+    this.courses$ = this.coursesService.listCourses()
+    .pipe(
+      catchError(error => {
+        this.onError('Error loading courses. Please try again later.');
+        return of ([]);
+      })
+    );
+  }
+
+  onError(errorMessage: string) {
+     this.dialog.open(ErrorDialogComponent, {
+      data: 'An error occurred while loading courses.',
+    });
   }
 
   ngOnInit(): void {
