@@ -9,6 +9,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
+import {MatIconModule} from '@angular/material/icon';
+import { CategoryPipe } from '../../shared/pipes/category.pipe';
 
 
 @Component({
@@ -19,7 +21,9 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
     MatCardModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
-    CommonModule
+    CommonModule,
+    MatIconModule,
+    CategoryPipe
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
